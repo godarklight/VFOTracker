@@ -12,5 +12,6 @@ namespace VFOTracker
         public string status;
         public byte[] complexData;
         public byte[] fftData;
+        public byte[] fftPassbandData;
     }
 }

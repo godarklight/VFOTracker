@@ -6,7 +6,7 @@ namespace VFOTracker
     class FFTConvolute
     {
         //https://youtu.be/hj7j4Q8T3Ck?t=978
-        public static Complex[] Convolute(Complex[] signalFFT, Complex[] kernelFFT, int lengthOfFilter)
+        public static Complex[] Convolute(Complex[] signalFFT, Complex[] kernelFFT, out Complex[] passbandFFT, int lengthOfFilter)
         {
             if (signalFFT.Length != kernelFFT.Length)
             {
@@ -23,6 +23,7 @@ namespace VFOTracker
             {
                 ifft[i] = ifft[i] / (double)(lengthOfFilter);
             }
+            passbandFFT = multiplied;
             return ifft;
         }
 

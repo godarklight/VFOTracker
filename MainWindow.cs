@@ -9,8 +9,8 @@ namespace VFOTracker
 {
     class MainWindow : Window
     {
-        //[UI] DrawingArea drawFFT = null;
         [UI] private Image imageFFT = null;
+        [UI] private Image imagePassband = null;
         [UI] private Image imageComplex = null;
         [UI] private Label lblStatus = null;
         [UI] private SpinButton spinFreq = null;
@@ -42,8 +42,18 @@ namespace VFOTracker
         {
             Application.Invoke((object o, EventArgs e) =>
             {
-                imageFFT.Pixbuf = new Pixbuf(su.fftData, Gdk.Colorspace.Rgb, false, 8, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE * 3, null);
+                imageFFT.Pixbuf = new Pixbuf(su.fftData, Gdk.Colorspace.Rgb, false, 8, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE / 2, Program.DISPLAY_SIZE * 3, null);
+                imagePassband.Pixbuf = new Pixbuf(su.fftPassbandData, Gdk.Colorspace.Rgb, false, 8, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE / 2, Program.DISPLAY_SIZE * 3, null);
                 imageComplex.Pixbuf = new Pixbuf(su.complexData, Gdk.Colorspace.Rgb, false, 8, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE * 3, null);
+                lblStatus.Text = su.status;
+            });
+        }
+
+        public void PartialUpdateFrame(StatusUpdate su)
+        {
+            Application.Invoke((object o, EventArgs e) =>
+            {
+                imageFFT.Pixbuf = new Pixbuf(su.fftData, Gdk.Colorspace.Rgb, false, 8, Program.DISPLAY_SIZE, Program.DISPLAY_SIZE / 2, Program.DISPLAY_SIZE * 3, null);
                 lblStatus.Text = su.status;
             });
         }
